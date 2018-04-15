@@ -1,0 +1,3 @@
+This is my basic LWJGL setup designed following [ElegantWhelp's Tutorial Series](https://www.youtube.com/watch?v=VH9KAhjXVFM&list=PLILiqflMilIxta2xKk2EftiRHD4nQGW0u).
+He coded his tutorial series in Java, and I've written it in Kotlin while following along. I completed episodes 1-22, 26, and 31.
+His code can be found [here](https://github.com/ElegantWhelp/LWJGL-3-Tutorial), and is licensed under the MIT License.
