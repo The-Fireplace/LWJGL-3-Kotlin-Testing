@@ -18,7 +18,7 @@ class Shader(filename: String) {
     init {
 
         vs = glCreateShader(GL_VERTEX_SHADER)
-        glShaderSource(vs, readFile("$filename.$vertex_shader_ext"))
+        glShaderSource(vs, readSource("$filename.$vertex_shader_ext"))
         glCompileShader(vs)
         //Ensure that the shader compiled successfully
         if (glGetShaderi(vs, GL_COMPILE_STATUS) != 1) {
@@ -27,7 +27,7 @@ class Shader(filename: String) {
         }
 
         fs = glCreateShader(GL_FRAGMENT_SHADER)
-        glShaderSource(fs, readFile("$filename.$fragment_shader_ext"))
+        glShaderSource(fs, readSource("$filename.$fragment_shader_ext"))
         glCompileShader(fs)
         //Ensure that the shader compiled successfully.
         if (glGetShaderi(fs, GL_COMPILE_STATUS) != 1) {
@@ -69,13 +69,10 @@ class Shader(filename: String) {
             glUniformMatrix4fv(location, false, buffer)
     }
 
-    fun bind() {
+    fun useShader() {
         glUseProgram(program)
     }
 
-    /**
-     * This is to be called instead of finalize, if it's even necessary. Including for completeness.
-     */
     fun destroy() {
         glDetachShader(program, vs)
         glDetachShader(program, fs)
@@ -84,7 +81,7 @@ class Shader(filename: String) {
         glDeleteProgram(program)
     }
 
-    private fun readFile(filename: String): String {
+    private fun readSource(filename: String): String {
         val string = StringBuilder()
         val br: BufferedReader
         try {

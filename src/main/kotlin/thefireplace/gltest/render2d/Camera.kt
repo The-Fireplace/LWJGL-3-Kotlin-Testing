@@ -1,4 +1,4 @@
-package thefireplace.gltest.render
+package thefireplace.gltest.render2d
 
 import org.joml.Matrix4f
 import org.joml.Vector3f

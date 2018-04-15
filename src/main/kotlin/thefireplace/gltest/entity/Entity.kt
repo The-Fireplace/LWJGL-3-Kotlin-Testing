@@ -2,10 +2,10 @@ package thefireplace.gltest.entity
 
 import org.joml.Vector3f
 import thefireplace.gltest.io.Window
-import thefireplace.gltest.render.Camera
-import thefireplace.gltest.render.Model
+import thefireplace.gltest.render2d.Camera
+import thefireplace.gltest.render2d.Model
 import thefireplace.gltest.render.Shader
-import thefireplace.gltest.render.Texture
+import thefireplace.gltest.render2d.Texture
 import thefireplace.gltest.world.World
 
 open class Entity(textureName: String, protected val transform: Transform) {
@@ -54,7 +54,7 @@ open class Entity(textureName: String, protected val transform: Transform) {
         val model = getModel() ?: return
         val target = camera.getProjection()
         target.mul(world.world)
-        shader.bind()
+        shader.useShader()
         shader.setUniform("sampler", 0)
         shader.setUniform("projection", transform.getProjection(target))
         texture.bind(0)

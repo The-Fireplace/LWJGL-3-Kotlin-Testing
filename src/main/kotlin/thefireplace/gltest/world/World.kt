@@ -3,9 +3,9 @@ package thefireplace.gltest.world
 import org.joml.Matrix4f
 import org.joml.Vector3f
 import thefireplace.gltest.io.Window
-import thefireplace.gltest.render.Camera
+import thefireplace.gltest.render2d.Camera
 import thefireplace.gltest.render.Shader
-import thefireplace.gltest.render.TileRenderer
+import thefireplace.gltest.render2d.TileRenderer
 
 class World(val width: Int, val height: Int, val scale: Float) {
     val tiles = IntArray(width * height)

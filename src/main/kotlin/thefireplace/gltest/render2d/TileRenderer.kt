@@ -1,7 +1,8 @@
-package thefireplace.gltest.render
+package thefireplace.gltest.render2d
 
 import org.joml.Matrix4f
 import org.joml.Vector3f
+import thefireplace.gltest.render.Shader
 import thefireplace.gltest.world.Tile
 
 class TileRenderer {
@@ -36,7 +37,7 @@ class TileRenderer {
     }
 
     fun renderTile(tile: Tile, x: Int, y: Int, shader: Shader, world: Matrix4f, camera: Camera) {
-        shader.bind()
+        shader.useShader()
         val tex = tile.getTexture()
         if (tile_textures.containsKey(tex))
             tile_textures[tex]?.bind(0)

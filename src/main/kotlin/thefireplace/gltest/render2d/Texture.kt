@@ -1,4 +1,4 @@
-package thefireplace.gltest.render
+package thefireplace.gltest.render2d
 
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL11.*
@@ -68,6 +68,6 @@ class Texture(filename: String) {
             } else
                 error("Attempted to use invalid sampler.")
         } else
-            error("Attempted to bind invalid texture.")
+            error("Attempted to useShader invalid texture.")
     }
 }

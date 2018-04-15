@@ -3,7 +3,7 @@ package thefireplace.gltest.entity
 import org.joml.Vector3f
 import org.lwjgl.glfw.GLFW
 import thefireplace.gltest.io.Window
-import thefireplace.gltest.render.Camera
+import thefireplace.gltest.render2d.Camera
 import thefireplace.gltest.world.World
 
 class Player(textureName: String, transform: Transform) : Entity(textureName, transform) {
