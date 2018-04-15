@@ -1,19 +1,20 @@
 package thefireplace.gltest.io
 
+import org.lwjgl.glfw.Callbacks.glfwFreeCallbacks
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.glfw.GLFWErrorCallback
 import org.lwjgl.glfw.GLFWWindowSizeCallback
-import org.lwjgl.glfw.Callbacks.*
 
-class Window(val title:String, private var width:Int, private var height:Int, private var fullscreen:Boolean) {
-    constructor(title: String): this(title, 1280, 720, false)
-    constructor(title: String, width: Int, height: Int): this(title, width, height, false)
+class Window(val title: String, private var width: Int, private var height: Int, private var fullscreen: Boolean) {
+    constructor(title: String) : this(title, 1280, 720, false)
+    constructor(title: String, width: Int, height: Int) : this(title, width, height, false)
+
     //this is a pointer reference to window for glfw.
-    private var window:Long = 0
+    private var window: Long = 0
 
     private var input: Input
-    private var hasResized:Boolean
-    private var windowSizeCallback:GLFWWindowSizeCallback? = null
+    private var hasResized: Boolean
+    private var windowSizeCallback: GLFWWindowSizeCallback? = null
 
     companion object {
         fun setCallbacks() {
@@ -21,16 +22,18 @@ class Window(val title:String, private var width:Int, private var height:Int, pr
         }
     }
 
-    fun setLocalCallbacks(){
-        windowSizeCallback = GLFWWindowSizeCallback.create { _, width, height -> run{
-            this.width = width
-            this.height = height
-            hasResized = true
-        } }
+    fun setLocalCallbacks() {
+        windowSizeCallback = GLFWWindowSizeCallback.create { _, width, height ->
+            run {
+                this.width = width
+                this.height = height
+                hasResized = true
+            }
+        }
         glfwSetWindowSizeCallback(window, windowSizeCallback)
     }
 
-    init{
+    init {
         setSize(width, height)
         setFullscreen(fullscreen)
         createWindow()
@@ -39,13 +42,13 @@ class Window(val title:String, private var width:Int, private var height:Int, pr
         hasResized = false
     }
 
-    private fun createWindow(){
-        window = glfwCreateWindow(width, height, title, if(fullscreen) glfwGetPrimaryMonitor() else 0, 0)
+    private fun createWindow() {
+        window = glfwCreateWindow(width, height, title, if (fullscreen) glfwGetPrimaryMonitor() else 0, 0)
 
-        if(window == 0L)
+        if (window == 0L)
             throw IllegalStateException("Failed to create window.")
 
-        if(!fullscreen) {
+        if (!fullscreen) {
             val vid = glfwGetVideoMode(glfwGetPrimaryMonitor())
             //Center the window
             if (vid != null)
@@ -62,33 +65,33 @@ class Window(val title:String, private var width:Int, private var height:Int, pr
         setLocalCallbacks()
     }
 
-    fun update(){
+    fun update() {
         hasResized = false
         input.update()
         glfwPollEvents()
     }
 
-    fun cleanup(){
+    fun cleanup() {
         glfwFreeCallbacks(window)
     }
 
-    fun setShouldClose(shouldClose:Boolean){
+    fun setShouldClose(shouldClose: Boolean) {
         glfwSetWindowShouldClose(window, shouldClose)
     }
 
-    fun shouldClose():Boolean{
+    fun shouldClose(): Boolean {
         return glfwWindowShouldClose(window)
     }
 
-    fun swapBuffers(){
+    fun swapBuffers() {
         glfwSwapBuffers(window)
     }
 
-    fun setFullscreen(fullscreen:Boolean){
+    fun setFullscreen(fullscreen: Boolean) {
         this.fullscreen = fullscreen
     }
 
-    fun isFullscreen():Boolean{
+    fun isFullscreen(): Boolean {
         return fullscreen
     }
 
@@ -96,20 +99,20 @@ class Window(val title:String, private var width:Int, private var height:Int, pr
         return input
     }
 
-    fun setSize(width:Int, height:Int){
+    fun setSize(width: Int, height: Int) {
         this.width = width
         this.height = height
     }
 
-    fun getWidth():Int{
+    fun getWidth(): Int {
         return width
     }
 
-    fun getHeight():Int{
+    fun getHeight(): Int {
         return height
     }
 
-    fun hasResized():Boolean{
+    fun hasResized(): Boolean {
         return hasResized
     }
 }

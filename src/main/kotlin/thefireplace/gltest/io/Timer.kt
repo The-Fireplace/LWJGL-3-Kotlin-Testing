@@ -4,7 +4,7 @@ object Timer {
     /**
      * Get system time in seconds.
      */
-    fun getTime():Double{
-        return System.nanoTime()/1000000000.0
+    fun getTime(): Double {
+        return System.nanoTime() / 1000000000.0
     }
 }

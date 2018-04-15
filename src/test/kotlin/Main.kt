@@ -1,4 +1,3 @@
-import org.joml.Vector3f
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11.*
@@ -7,7 +6,10 @@ import thefireplace.gltest.entity.Player
 import thefireplace.gltest.entity.Transform
 import thefireplace.gltest.io.Timer
 import thefireplace.gltest.io.Window
-import thefireplace.gltest.render.*
+import thefireplace.gltest.render.Camera
+import thefireplace.gltest.render.Shader
+import thefireplace.gltest.render.Texture
+import thefireplace.gltest.render.TileRenderer
 import thefireplace.gltest.world.Tile
 import thefireplace.gltest.world.TileRegistry
 import thefireplace.gltest.world.World
@@ -16,7 +18,7 @@ class Main {
 
     companion object {
         @JvmStatic
-        fun main(args:Array<String>){
+        fun main(args: Array<String>) {
             Main()
         }
     }
@@ -24,7 +26,7 @@ class Main {
     init {
         Window.setCallbacks()
         //Initialize GLFW, and throw an exception if it fails.
-        if(!glfwInit())
+        if (!glfwInit())
             throw IllegalStateException("Failed to initialize GLFW!")
 
         val window = Window("LWJGL Test Program")
@@ -66,7 +68,7 @@ class Main {
         //Create a player
         val player = Player("char.png", Transform())
 
-        val frame_cap = 1.0/60.0//Nummber of seconds divided by number of frames to display in that time.
+        val frame_cap = 1.0 / 60.0//Nummber of seconds divided by number of frames to display in that time.
 
         //Variables for calculating current FPS
         var frame_time = 0.0
@@ -76,7 +78,7 @@ class Main {
         var unprocessed = 0.0
 
         //Actions when the window is open.
-        while(!window.shouldClose()) {
+        while (!window.shouldClose()) {
             //Beginning of the frame.
 
             var can_render = false
@@ -91,8 +93,8 @@ class Main {
             time = time_2
 
             //Anything that doesn't have to do with rendering goes in here.
-            while(unprocessed >= frame_cap) {
-                if(window.hasResized()) {
+            while (unprocessed >= frame_cap) {
+                if (window.hasResized()) {
                     camera.setProjection(window.getWidth(), window.getHeight())
                     glViewport(0, 0, window.getWidth(), window.getHeight())
                 }
@@ -101,7 +103,7 @@ class Main {
                 can_render = true
 
                 //Make the window close if Escape is pressed.
-                if(window.getInput().isKeyPressed(GLFW_KEY_ESCAPE))
+                if (window.getInput().isKeyPressed(GLFW_KEY_ESCAPE))
                     window.setShouldClose(true)
 
                 player.update(frame_cap.toFloat(), window, camera, world)
@@ -112,7 +114,7 @@ class Main {
                 //Poll for events (input, etc)
                 window.update()
 
-                if(frame_time >= 1.0){
+                if (frame_time >= 1.0) {
                     frame_time = 0.0
                     println("FPS: $frames")
                     frames = 0
@@ -120,7 +122,7 @@ class Main {
             }
 
             //Skip rendering if the frame couldn't possibly be any different than before.
-            if(!can_render)
+            if (!can_render)
                 continue
 
             frames++
