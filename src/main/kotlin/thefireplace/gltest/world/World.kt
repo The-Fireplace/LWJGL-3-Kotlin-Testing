@@ -20,7 +20,7 @@ class World(private val width: Int, private val height: Int, val scale: Float) {
                 val r = ((Math.pow(256.0, 3.0) + color) / 65536).toInt()
                 val g = ((Math.pow(256.0, 3.0) + color) / 256 % 256).toInt()
                 val b = ((Math.pow(256.0, 3.0) + color) % 256).toInt()
-                val rgb = r shl 16 or g shl 8 or b
+                val rgb = r shl 16 or (g shl 8) or b
                 val tile = TileRegistry.getTile(rgb)
                 if(tile != null)
                     setTile(tile, x, y)
