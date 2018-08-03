@@ -31,7 +31,7 @@ class Main {
         if (!glfwInit())
             throw IllegalStateException("Failed to initialize GLFW!")
 
-        val window = Window("LWJGL Test Program")
+        val window = Window("LWJGL 2D Test Program")
 
         //Make the second OpenGL context (buffer)
         GL.createCapabilities()

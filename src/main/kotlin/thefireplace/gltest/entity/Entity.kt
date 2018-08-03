@@ -5,6 +5,7 @@ import thefireplace.gltest.io.Window
 import thefireplace.gltest.render2d.Camera
 import thefireplace.gltest.render2d.Model
 import thefireplace.gltest.render.Shader
+import thefireplace.gltest.render2d.Animation
 import thefireplace.gltest.render2d.Texture
 import thefireplace.gltest.world.World
 
@@ -44,7 +45,8 @@ open class Entity(textureName: String, protected val transform: Transform) {
         }
     }
 
-    private val texture = Texture(textureName)
+    //private val texture = Texture(textureName)//Switched from one texture to an animation
+    private val texture = Animation(4, 4, textureName)
 
     open fun update(delta: Float, window: Window, camera: Camera, world: World) {
         camera.setPosition(transform.pos.mul(-world.scale, Vector3f()))
