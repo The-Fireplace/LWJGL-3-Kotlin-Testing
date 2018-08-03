@@ -3,7 +3,7 @@ package thefireplace.gltest.render2d
 import thefireplace.gltest.io.Timer
 
 class Animation(amount: Int, fps: Int, filename: String) {
-    private val frames: Array<Texture> = Array(amount){Texture("")}
+    private val frames: Array<Texture?> = Array(amount){null}
     private var texturePointer: Int = 0
 
     private var elapsedTime: Double = 0.0
@@ -33,6 +33,6 @@ class Animation(amount: Int, fps: Int, filename: String) {
 
         this.lastTime = currentTime
 
-        frames[texturePointer].bind(sampler)
+        frames[texturePointer]?.bind(sampler)
     }
 }

@@ -66,7 +66,7 @@ class Main {
         Entity.initModel()
 
         //Create a player
-        val player = Player("char.png", Transform())
+        val player = Player("char", Transform())
 
         val frame_cap = 1.0 / 60.0//Number of seconds divided by number of frames to display in that time.
 
