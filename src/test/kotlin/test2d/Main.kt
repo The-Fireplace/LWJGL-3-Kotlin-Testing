@@ -52,11 +52,9 @@ class Main {
         tileRenderer.addTex("tiletex1", Texture("tile2.jpg"))
         tileRenderer.addTex("tiletex2", Texture("tile1.png"))
 
-        var tileId = 0
-
         //Register tiles.
-        TileRegistry.registerTile(Tile(tileId++, "tiletex1"))
-        val tile2 = Tile(tileId, "tiletex2")
+        TileRegistry.registerTile(Tile("tiletex1"))
+        val tile2 = Tile("tiletex2")
         TileRegistry.registerTile(tile2)
 
         //Create a world
@@ -70,7 +68,7 @@ class Main {
         //Create a player
         val player = Player("char.png", Transform())
 
-        val frame_cap = 1.0 / 60.0//Nummber of seconds divided by number of frames to display in that time.
+        val frame_cap = 1.0 / 60.0//Number of seconds divided by number of frames to display in that time.
 
         //Variables for calculating current FPS
         var frame_time = 0.0

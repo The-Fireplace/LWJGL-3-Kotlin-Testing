@@ -1,6 +1,12 @@
 package thefireplace.gltest.world
 
-class Tile(private val id: Int, private val texture: String) {
+class Tile(private val texture: String) {
+
+    private val id = globalId++
+
+    companion object{
+        var globalId = 0
+    }
 
     fun getId(): Int {
         return id
