@@ -53,14 +53,14 @@ class Main {
         tileRenderer.addTex("tiletex2", Texture("tile1.png"))
 
         //Register tiles.
-        TileRegistry.registerTile(Tile("tiletex1"))
-        val tile2 = Tile("tiletex2")
+        TileRegistry.registerTile(Tile(0x000000, "tiletex1"))
+        val tile2 = Tile(0xffffff, "tiletex2")
         TileRegistry.registerTile(tile2)
 
         //Create a world
-        val world = World(25, 25, 16f)
+        val world = World("level1", 16f)//25, 25
 
-        world.setTile(tile2, 1, 1)
+        //world.setTile(tile2, 1, 1)
 
         //Init entity base model
         Entity.initModel()

@@ -6,8 +6,40 @@ import thefireplace.gltest.io.Window
 import thefireplace.gltest.render2d.Camera
 import thefireplace.gltest.render.Shader
 import thefireplace.gltest.render2d.TileRenderer
+import javax.imageio.ImageIO
 
-class World(val width: Int, val height: Int, val scale: Float) {
+class World(private val width: Int, private val height: Int, val scale: Float) {
+    //Constructor using a level file
+    constructor(level:String, scale:Float): this(getLevelWidth(level), getLevelHeight(level), scale){
+        val tileSheet = ImageIO.read(this::class.java.getResourceAsStream("/levels/$level.png"))
+        val colorSheet = tileSheet.getRGB(0, 0, width, height, null, 0, width)
+
+        for(y in 0 until height)
+            for(x in 0 until width){
+                val color = colorSheet[x + y * width]
+                val r = ((Math.pow(256.0, 3.0) + color) / 65536).toInt()
+                val g = ((Math.pow(256.0, 3.0) + color) / 256 % 256).toInt()
+                val b = ((Math.pow(256.0, 3.0) + color) % 256).toInt()
+                val rgb = r shl 16 or g shl 8 or b
+                val tile = TileRegistry.getTile(rgb)
+                if(tile != null)
+                    setTile(tile, x, y)
+                else {
+                    val rgbStr = Integer.toHexString(rgb)
+                    error("Tile not found for color $rgbStr.")
+                }
+            }
+    }
+
+    companion object {
+        fun getLevelWidth(level:String):Int{
+            return ImageIO.read(this::class.java.getResourceAsStream("/levels/$level.png")).width
+        }
+        fun getLevelHeight(level:String):Int{
+            return ImageIO.read(this::class.java.getResourceAsStream("/levels/$level.png")).height
+        }
+    }
+
     val tiles = IntArray(width * height)
 
     val world: Matrix4f = Matrix4f().setTranslation(Vector3f(0f)).scale(scale)
@@ -25,7 +57,7 @@ class World(val width: Int, val height: Int, val scale: Float) {
         tiles[x + y * width] = tile.getId()
     }
 
-    //This equasion will need to change if you
+    //This equation will need to change if you
     // a.) translate the world itself rather than the camera
     // b.) change the model vertices
     // c.) change the ortho of the camera projection
